@@ -1,17 +1,12 @@
 import React from 'react';
-import { Typography, IconButton, MenuItem, Menu } from '@material-ui/core';
+import {Typography, IconButton, MenuItem, Menu} from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreHorizOutlined';
 
 import styles from './Comment.module.scss';
+import {CommentType} from "../PostComments";
 
-interface CommentPostProps {
-  user: {
-    fullname: string;
-  };
-  text: string;
-}
 
-export const Comment: React.FC<CommentPostProps> = ({ user, text }) => {
+export const Comment: React.FC<CommentType> = ({user, text, createdAt}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -26,19 +21,18 @@ export const Comment: React.FC<CommentPostProps> = ({ user, text }) => {
     <div className={styles.comment}>
       <div className={styles.userInfo}>
         <img
-          src="https://leonardo.osnova.io/104b03b4-5173-fd9f-2af9-b458dddc4a23/-/scale_crop/108x108/-/format/webp/"
+          src={user.avatarUrl}
           alt="Avatar"
         />
-        <b>Master Oogway</b>
-        <span>5 часов</span>
+        <b>{user.fullName}</b>
+        <span>{createdAt}</span>
       </div>
       <Typography className={styles.text}>
-        Суперджет это ад адский, два раза летала и оба раза прощалась с жизнью. Трясёт хуже, чем в
-        копейке по разьебанной дороге
+        {text}
       </Typography>
       <span className={styles.replyBtn}>Ответить</span>
       <IconButton onClick={handleClick}>
-        <MoreIcon />
+        <MoreIcon/>
       </IconButton>
       <Menu
         anchorEl={anchorEl}
