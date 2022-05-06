@@ -1,4 +1,4 @@
-import { createTheme } from '@material-ui/core';
+import {createTheme} from '@material-ui/core';
 
 export const theme = createTheme({
   props: {
@@ -18,6 +18,11 @@ export const theme = createTheme({
       },
     },
     MuiPopover: {},
+    MuiDialog: {
+      paper: {
+        boxShadow: 'none'
+      }
+    },
     MuiButton: {
       root: {
         borderRadius: '8px',

@@ -3,10 +3,17 @@ import {Typography, IconButton, MenuItem, Menu} from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreHorizOutlined';
 
 import styles from './Comment.module.scss';
-import {CommentType} from "../PostComments";
 
+interface CommentProps {
+  user: {
+    fullName: string;
+    avatarUrl: string;
+  },
+  text: string;
+  createdAt: string;
+}
 
-export const Comment: React.FC<CommentType> = ({user, text, createdAt}) => {
+export const Comment: React.FC<CommentProps> = ({user, text, createdAt}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {

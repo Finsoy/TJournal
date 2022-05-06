@@ -1,0 +1,47 @@
+.modalWrapper {
+  padding: 35px !important;
+}
+
+.content {
+  button {
+    position: relative;
+    svg, img {
+      position: absolute;
+      left: 10px;
+      width: 25px;
+      height: 25px;
+    }
+  }
+}
+
+.title {
+  font-size: 18px;
+  color: black !important;
+  font-weight: 500 !important;
+  margin-bottom: 15px !important;
+}
+
+.miniBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  button {
+    width: 30%;
+    height: 50px;
+  }
+}
+
+.backTitle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  &:hover {
+  color: #4683d9;
+}
+  svg {
+    cursor: pointer;
+    margin-right: 10px;
+  }
+}

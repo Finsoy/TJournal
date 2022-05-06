@@ -1,14 +1,26 @@
+.form {
+ display: flex;
+ flex-direction: column;
+ margin-top: 15px;
+ align-items: flex-end;
+ padding: 10px 17px !important;
+ background-color: #f7f7f7;
+ border: 1px solid rgba(0,0,0,.03);
+ border-radius: 10px;
+ margin-bottom: 30px;
+}
+
 .fieldRoot {
  transition: all 0.3s linear;
- margin-top: 15px;
 
-  padding: 7px 17px 7px 15px !important;
-  background-color: #f7f7f7;
-  border: 1px solid rgba(0,0,0,.03);
-  border-radius: 10px;
   cursor: pointer !important;
 
  &:after, &:before {
   display: none;
  }
+}
+
+.addButton {
+ width: 25%;
+ margin-top: 10px;
 }
