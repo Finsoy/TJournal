@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import {LeftMenu} from '../components/LeftMenu';
 import {SideComments} from '../components/SideComments';
+import TransitionLayout from "./TransitionLayout";
 
 interface MainLayoutProps {
   hideComments?: boolean;
@@ -22,7 +23,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       {!hideMenu && <div className="leftSide">
         <LeftMenu/>
       </div>}
-      <div className={clsx('content', {'content--full': contentFullWidth})}>{children}</div>
+      <TransitionLayout contentFullWidth>
+        <div className={clsx('content', {'content--full': contentFullWidth})}>{children}</div>
+      </TransitionLayout>
       {!hideComments && (
         <div className="rightSide">
           <SideComments/>
