@@ -10,6 +10,9 @@ import {
 } from "@material-ui/icons";
 
 import styles from './AuthDialog.module.scss'
+import MainForm from "./fomrs/MainForm";
+import LoginForm from "./fomrs/Login";
+import RegisterForm from "./fomrs/Register";
 
 interface AuthDialogProps {
   handleClose: () => void;
@@ -17,7 +20,7 @@ interface AuthDialogProps {
 }
 
 const AuthDialog: React.FC<AuthDialogProps> = ({handleClose, open}) => {
-  const [formType, setFormType] = useState<'main' | 'email'>('main')
+  const [formType, setFormType] = useState<'main' | 'login' | 'register'>('main')
 
   return (
     <Dialog
@@ -34,68 +37,21 @@ const AuthDialog: React.FC<AuthDialogProps> = ({handleClose, open}) => {
           <Typography className={styles.title}>
             {formType === 'main' ? 'Вход в RJournal' : <div className={styles.backTitle}>
               <ArrowBackIcon onClick={() => setFormType('main')}/>
-              Вход через почту
+              К авторизации
             </div>}
           </Typography>
           {formType === 'main' && (
-            <>
-              <div className={styles.content}>
-                <Button className='mb-10' variant='contained' fullWidth>
-                  <img className='mr-10' src='/static/img/vk-logo.svg' alt='vk logo'/>
-                  ВКонтакте
-                </Button>
-                <Button className='mb-10' variant='contained' fullWidth>
-                  <img className='mr-10' src='/static/img/google-logo.svg' alt='vk logo'/>
-                  Google
-                </Button>
-                <Button onClick={() => setFormType('email')} className='mb-10' variant='contained' fullWidth>
-                  <MailIcon className='mr-10'/>
-                  Email
-                </Button>
-                <Button className='mb-10' variant='contained' fullWidth>
-                  <GitHubIcon className='mr-10'/>
-                  Github
-                </Button>
-              </div>
-
-              <div className={styles.miniBar}>
-                <Button variant='contained'>
-                  <FacebookIcon/>
-                </Button>
-                <Button variant='contained'>
-                  <TwitterIcon/>
-                </Button>
-                <Button variant='contained'>
-                  <AppleIcon/>
-                </Button>
-              </div>
-            </>
+            <MainForm onOpenLogin={() => setFormType('login')}/>
           )}
 
-          {formType === 'email' && (<>
-            <form>
-              <TextField
-                className="mb-20"
-                size="small"
-                label="Почта"
-                variant="outlined"
-                fullWidth
-                required
-              />
-              <TextField
-                className="mb-20"
-                size="small"
-                label="Пароль"
-                type='password'
-                variant="outlined"
-                fullWidth
-                required
-              />
-              <Button color="primary" variant="contained">
-                Войти
-              </Button>
-            </form>
-          </>)}
+          {formType === 'login' && (
+            <LoginForm onOpenRegister={() => setFormType('register')}/>
+          )}
+
+          {formType === 'register' && (
+            <RegisterForm onOpenRegister={() => setFormType('register')}
+                          onOpenLogin={() => setFormType('login')}/>
+          )}
 
         </DialogContentText>
       </DialogContent>
