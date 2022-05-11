@@ -2,7 +2,7 @@ import React from 'react'
 import {Button, TextField} from "@material-ui/core";
 import {useForm, FormProvider} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {loginFormSchema} from "../../../utils/schemas/loginValidation";
+import {registerFormSchema} from "../../../utils/validatoins";
 import FormField from "../../FormField";
 
 interface RegisterFormProps {
@@ -12,13 +12,11 @@ interface RegisterFormProps {
 
 const RegisterForm: React.FC<RegisterFormProps> = ({onOpenRegister, onOpenLogin}) => {
   const form = useForm({
-    mode: 'onSubmit',
-    resolver: yupResolver(loginFormSchema)
+    mode: 'onChange',
+    resolver: yupResolver(registerFormSchema)
   })
 
   const onSubmit = (data) => console.log(data)
-
-  console.log(form.formState.errors)
 
   return (
     <>
@@ -28,12 +26,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({onOpenRegister, onOpenLogin}
           <FormField name='email' label='Почта'/>
           <FormField name='password' label='Пароль'/>
           <div className='d-flex align-center justify-between'>
-            <Button type="submit" color="primary" variant="contained">
-              Войти
+            <Button disabled={!form.formState.isValid} onClick={onOpenRegister} type="submit" color="primary" variant="contained">
+              Зарегестрироваться
             </Button>
 
-            <Button onClick={onOpenRegister} color="primary" variant="text">
-              Регистрация
+            <Button onClick={onOpenLogin} color="primary" variant="text">
+              Войти
             </Button>
           </div>
         </form>

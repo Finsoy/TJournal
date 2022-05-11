@@ -1,9 +1,9 @@
 import React from 'react'
-import {Button, TextField} from "@material-ui/core";
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-import {loginFormSchema} from "../../../utils/schemas/loginValidation";
+import {Button} from "@material-ui/core";
+import {useForm, FormProvider} from "react-hook-form";
+import {yupResolver} from '@hookform/resolvers/yup';
+import {loginFormSchema} from "../../../utils/validatoins";
+import FormField from "../../FormField";
 
 interface LoginFormProps {
   onOpenRegister: () => void;
@@ -11,7 +11,7 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({onOpenRegister}) => {
   const form = useForm({
-    mode: 'onSubmit',
+    mode: 'onChange',
     resolver: yupResolver(loginFormSchema)
   })
 
@@ -20,35 +20,12 @@ const LoginForm: React.FC<LoginFormProps> = ({onOpenRegister}) => {
   console.log(form.formState.errors)
 
   return (
-    <>
+    <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <TextField
-          name="email"
-          {...form.register('email')}
-          helperText={form.formState.errors.email?.message}
-          error={!!form.formState.errors.email?.message}
-          className="mb-20"
-          size="small"
-          label="Почта"
-          variant="outlined"
-          fullWidth
-          required
-        />
-        <TextField
-          name="password"
-          {...form.register('password')}
-          helperText={form.formState.errors.password?.message}
-          error={!!form.formState.errors.password?.message}
-          className="mb-20"
-          size="small"
-          label="Пароль"
-          type='password'
-          variant="outlined"
-          fullWidth
-          required
-        />
+        <FormField name='email' label='Почта'/>
+        <FormField name='password' label='Пароль'/>
         <div className='d-flex align-center justify-between'>
-          <Button type="submit" color="primary" variant="contained">
+          <Button disabled={!form.formState.isValid} type="submit" color="primary" variant="contained">
             Войти
           </Button>
 
@@ -57,7 +34,7 @@ const LoginForm: React.FC<LoginFormProps> = ({onOpenRegister}) => {
           </Button>
         </div>
       </form>
-    </>
+    </FormProvider>
   );
 };
 
